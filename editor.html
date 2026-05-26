@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhyWatt? | Static Page Visual Editor</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-editor: #090d16;
+            --sidebar-bg: rgba(17, 24, 39, 0.85);
+            --sidebar-border: rgba(255, 255, 255, 0.08);
+            --card-bg: rgba(30, 41, 59, 0.5);
+            --card-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent: #4f46e5;
+            --accent-hover: #6366f1;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --font-display: 'Outfit', sans-serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-editor);
+            color: var(--text-primary);
+            font-family: var(--font-sans);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Sidebar Styling */
+        aside {
+            width: 420px;
+            background: var(--sidebar-bg);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--sidebar-border);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            z-index: 10;
+            box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .editor-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--sidebar-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .editor-title h1 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 20px;
+            background: linear-gradient(135deg, #a5b4fc, #6366f1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .editor-title p {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .connection-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 9999px;
+            font-size: 11px;
+            font-weight: 600;
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .connection-status.connected {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        /* Sidebar Panels container */
+        .editor-panels {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        /* Scrollbar styles */
+        .editor-panels::-webkit-scrollbar {
+            width: 6px;
+        }
+        .editor-panels::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .editor-panels::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        .panel-section {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .panel-section:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+
+        .panel-section h2 {
+            font-family: var(--font-display);
+            font-size: 14px;
+            font-weight: 600;
+            color: #e5e7eb;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: 0.2px;
+        }
+
+        .panel-section h2 span {
+            color: var(--accent-hover);
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+
+        label {
+            display: block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="text"],
+        input[type="color"],
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: var(--text-primary);
+            padding: 10px 12px;
+            font-family: var(--font-sans);
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        /* Color Picker container styling */
+        .color-picker-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="color"] {
+            width: 48px;
+            height: 38px;
+            padding: 2px;
+            cursor: pointer;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Button manager list */
+        .button-manager-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .button-item {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 12px;
+            position: relative;
+        }
+
+        .button-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .button-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .btn-delete {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-delete:hover {
+            color: var(--danger);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        .button-item-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        /* Action Buttons */
+        .btn-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary-action {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-primary-action:hover {
+            background: var(--accent-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+
+        .btn-primary-action:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary-action {
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 10px;
+        }
+
+        .btn-secondary-action:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Footer / Save section */
+        .editor-footer {
+            padding: 24px;
+            border-top: 1px solid var(--sidebar-border);
+            background: rgba(10, 15, 30, 0.9);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Main Workspace */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #111827;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Top control bar */
+        .top-bar {
+            height: 64px;
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--sidebar-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 5;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 3px;
+            border-radius: 8px;
+            gap: 4px;
+        }
+
+        .btn-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-toggle.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        .viewport-sizes {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-vp {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .btn-vp.active, .btn-vp:hover {
+            color: white;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Live Preview Container */
+        .preview-area {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: auto;
+            position: relative;
+            background: radial-gradient(circle at 50% 50%, #1e293b, #0f172a);
+        }
+
+        .preview-wrapper {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .preview-wrapper.tablet {
+            width: 768px;
+            height: 1024px;
+            max-height: 90%;
+        }
+
+        .preview-wrapper.mobile {
+            width: 375px;
+            height: 720px;
+            max-height: 90%;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: white;
+        }
+
+        /* Source Code view */
+        .code-view-container {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 24px;
+            background: #020617;
+            overflow: auto;
+        }
+
+        .code-view-container.active {
+            display: block;
+        }
+
+        pre {
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #cbd5e1;
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        /* Welcome overlays */
+        .welcome-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(9, 13, 22, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 20;
+            transition: opacity 0.5s ease;
+        }
+
+        .welcome-card {
+            background: rgba(17, 24, 39, 0.7);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .welcome-card h3 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .welcome-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        .btn-welcome {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* Custom notifications */
+        .notification-toast {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            border-radius: 10px;
+            background: rgba(16, 185, 129, 0.95);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 100;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .notification-toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .notification-toast.error {
+            background: rgba(239, 68, 68, 0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="editor-header">
+            <div class="editor-title">
+                <h1>WhyWatt Editor</h1>
+                <p>Visual Static Builder</p>
+            </div>
+            <div id="statusIndicator" class="connection-status">
+                <span>●</span> Not Connected
+            </div>
+        </div>
+
+        <div class="editor-panels">
+            
+            <!-- PAGE INFO -->
+            <div class="panel-section">
+                <h2><span>📝</span> Page Details</h2>
+                <div class="form-group">
+                    <label for="pageTitle">Browser Title</label>
+                    <input type="text" id="pageTitle" placeholder="WhyWatt? | Home Electrification Simulator">
+                </div>
+            </div>
+
+            <!-- LOGO SECTION -->
+            <div class="panel-section">
+                <h2><span>🖼️</span> Logo & Brand</h2>
+                <div class="form-group">
+                    <label for="logoSrc">Logo Image URL/Path</label>
+                    <input type="text" id="logoSrc" placeholder="whywatt_logo.png">
+                </div>
+                <div class="form-group">
+                    <label for="logoAlt">Alt Text (Accessibility)</label>
+                    <input type="text" id="logoAlt" placeholder="WhyWatt Logo">
+                </div>
+                <div class="form-group">
+                    <label for="logoWidth">Logo Max Width (px)</label>
+                    <input type="text" id="logoWidth" placeholder="320px">
+                </div>
+            </div>
+
+            <!-- MAIN TEXT -->
+            <div class="panel-section">
+                <h2><span>💡</span> Hero Message</h2>
+                <div class="form-group">
+                    <label for="heroText">Hero Paragraph Text</label>
+                    <textarea id="heroText" placeholder="Empowering homeowners and communities..."></textarea>
+                </div>
+            </div>
+
+            <!-- THEME AND STYLING -->
+            <div class="panel-section">
+                <h2><span>🎨</span> Colors & Aesthetics</h2>
+                <div class="form-group">
+                    <label>Accent Brand Color</label>
+                    <div class="color-picker-group">
+                        <input type="color" id="accentColor" value="#0047AB">
+                        <input type="text" id="accentColorText" value="#0047AB" style="width: 100px;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Text Main Color</label>
+                    <div class="color-picker-group">
+                        <input type="color" id="textColor" value="#2D3436">
+                        <input type="text" id="textColorText" value="#2D3436" style="width: 100px;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- BUTTONS MANAGER -->
+            <div class="panel-section">
+                <h2><span>🔗</span> Navigation Buttons</h2>
+                <div class="button-manager-list" id="buttonsList">
+                    <!-- Dynamic button items go here -->
+                </div>
+                <button type="button" class="btn-action btn-secondary-action" id="btnAddButton" style="padding: 8px; font-size: 12px; margin-top: 12px;">
+                    ➕ Add Action Button
+                </button>
+            </div>
+
+        </div>
+
+        <!-- SAVE ACTIONS -->
+        <div class="editor-footer">
+            <button class="btn-action btn-primary-action" id="btnSaveFile" disabled>
+                💾 Save Directly to index.html
+            </button>
+            <button class="btn-action btn-secondary-action" id="btnDownloadFile">
+                📥 Download HTML File
+            </button>
+            <button class="btn-action btn-secondary-action" id="btnCopyCode" style="margin-top: 0;">
+                📋 Copy HTML Code
+            </button>
+        </div>
+    </aside>
+
+    <!-- MAIN WORKSPACE -->
+    <main>
+        <!-- TOP CONTROL BAR -->
+        <div class="top-bar">
+            <!-- View switches -->
+            <div class="view-toggle">
+                <button class="btn-toggle active" id="btnViewVisual">🎨 Visual Live Preview</button>
+                <button class="btn-toggle" id="btnViewCode">💻 Clean HTML Code</button>
+            </div>
+
+            <!-- Viewport switches -->
+            <div class="viewport-sizes" id="vpSizes">
+                <button class="btn-vp active" data-vp="desktop" title="Desktop View (100%)">
+                    🖥️
+                </button>
+                <button class="btn-vp" data-vp="tablet" title="Tablet View (768px)">
+                    📟
+                </button>
+                <button class="btn-vp" data-vp="mobile" title="Mobile View (375px)">
+                    📱
+                </button>
+            </div>
+        </div>
+
+        <!-- VISUAL CANVAS -->
+        <div class="preview-area" id="previewArea">
+            <div class="preview-wrapper" id="previewWrapper">
+                <iframe id="previewFrame" title="WhyWatt Site Preview"></iframe>
+            </div>
+        </div>
+
+        <!-- RAW CODE VIEW -->
+        <div class="code-view-container" id="codeViewContainer">
+            <pre><code id="htmlCodeDisplay"></code></pre>
+        </div>
+
+        <!-- WELCOME OVERLAY -->
+        <div class="welcome-overlay" id="welcomeOverlay">
+            <div class="welcome-card">
+                <div class="welcome-icon">⚡</div>
+                <h3>Welcome to WhyWatt Visual Editor!</h3>
+                <p>To begin editing your page, select your local <code>index.html</code> file. This allows direct click-to-edit and one-click saving back to your workspace.</p>
+                <button class="btn-action btn-primary-action btn-welcome" id="btnConnectLocal">
+                    📂 Load index.html
+                </button>
+                <button class="btn-action btn-secondary-action" id="btnLoadFallback" style="margin-top: 12px; padding: 10px; font-size: 13px;">
+                    ⚡ Use Demo Template instead
+                </button>
+            </div>
+        </div>
+
+        <!-- NOTIFICATION TOAST -->
+        <div id="toast" class="notification-toast">
+            <span id="toastIcon">✓</span> <span id="toastMessage">Changes saved successfully!</span>
+        </div>
+    </main>
+
+    <script>
+        // Store parsed DOM
+        let parsedDoc = null;
+        let fileHandle = null;
+        let originalContent = "";
+
+        // Elements
+        const welcomeOverlay = document.getElementById('welcomeOverlay');
+        const btnConnectLocal = document.getElementById('btnConnectLocal');
+        const btnLoadFallback = document.getElementById('btnLoadFallback');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const btnSaveFile = document.getElementById('btnSaveFile');
+        const btnDownloadFile = document.getElementById('btnDownloadFile');
+        const btnCopyCode = document.getElementById('btnCopyCode');
+        
+        const previewFrame = document.getElementById('previewFrame');
+        const previewWrapper = document.getElementById('previewWrapper');
+        const previewArea = document.getElementById('previewArea');
+        const codeViewContainer = document.getElementById('codeViewContainer');
+        
+        const btnViewVisual = document.getElementById('btnViewVisual');
+        const btnViewCode = document.getElementById('btnViewCode');
+        
+        const pageTitleInput = document.getElementById('pageTitle');
+        const logoSrcInput = document.getElementById('logoSrc');
+        const logoAltInput = document.getElementById('logoAlt');
+        const logoWidthInput = document.getElementById('logoWidth');
+        const heroTextInput = document.getElementById('heroText');
+        const accentColorInput = document.getElementById('accentColor');
+        const accentColorTextInput = document.getElementById('accentColorText');
+        const textColorInput = document.getElementById('textColor');
+        const textColorTextInput = document.getElementById('textColorText');
+        const buttonsList = document.getElementById('buttonsList');
+        const btnAddButton = document.getElementById('btnAddButton');
+
+        // Viewport controls
+        const vpButtons = document.querySelectorAll('.btn-vp');
+        vpButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                vpButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const vp = btn.getAttribute('data-vp');
+                previewWrapper.className = 'preview-wrapper';
+                if (vp !== 'desktop') {
+                    previewWrapper.classList.add(vp);
+                }
+            });
+        });
+
+        // View Mode Switches
+        btnViewVisual.addEventListener('click', () => {
+            btnViewVisual.classList.add('active');
+            btnViewCode.classList.remove('active');
+            previewArea.style.display = 'flex';
+            codeViewContainer.classList.remove('active');
+            document.getElementById('vpSizes').style.visibility = 'visible';
+        });
+
+        btnViewCode.addEventListener('click', () => {
+            btnViewCode.classList.add('active');
+            btnViewVisual.classList.remove('active');
+            previewArea.style.display = 'none';
+            codeViewContainer.classList.add('active');
+            document.getElementById('vpSizes').style.visibility = 'hidden';
+            
+            // Generate current code
+            const rawHtml = generateCleanHTML();
+            document.getElementById('htmlCodeDisplay').textContent = rawHtml;
+        });
+
+        // File loading handlers
+        btnConnectLocal.addEventListener('click', async () => {
+            try {
+                // Feature check
+                if ('showOpenFilePicker' in window) {
+                    const [handle] = await window.showOpenFilePicker({
+                        types: [{
+                            description: 'HTML Files',
+                            accept: { 'text/html': ['.html'] }
+                        }],
+                        multiple: false
+                    });
+                    
+                    fileHandle = handle;
+                    const file = await fileHandle.getFile();
+                    const text = await file.text();
+                    loadHTMLContent(text);
+                    
+                    // Connected state
+                    statusIndicator.className = 'connection-status connected';
+                    statusIndicator.innerHTML = '<span>●</span> Connected to File';
+                    btnSaveFile.disabled = false;
+                    welcomeOverlay.style.opacity = 0;
+                    setTimeout(() => welcomeOverlay.style.display = 'none', 500);
+                    showToast('🎉 Directly connected to local index.html!', 'success');
+                } else {
+                    // Fallback input if not supported (e.g. Firefox)
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = '.html';
+                    input.onchange = async (e) => {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const text = await file.text();
+                            loadHTMLContent(text);
+                            statusIndicator.className = 'connection-status';
+                            statusIndicator.style.color = 'var(--warning)';
+                            statusIndicator.style.borderColor = 'rgba(245, 158, 11, 0.2)';
+                            statusIndicator.style.background = 'rgba(245, 158, 11, 0.1)';
+                            statusIndicator.innerHTML = '<span>●</span> Read Only (Click Download to Save)';
+                            welcomeOverlay.style.opacity = 0;
+                            setTimeout(() => welcomeOverlay.style.display = 'none', 500);
+                            showToast('📖 Loaded in Read-Only mode. Use "Download HTML" or "Copy HTML" to save changes!', 'warning');
+                        }
+                    };
+                    input.click();
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Failed to read file. Please try again.', 'error');
+            }
+        });
+
+        btnLoadFallback.addEventListener('click', () => {
+            // Load a default fallback template
+            const fallbackHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhyWatt? | Home Electrification Simulator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: #2D3436; max-width: 800px; margin: 80px auto; padding: 0 20px; line-height: 1.6; text-align: center; }
+        img { max-width: 320px; height: auto; margin-bottom: 20px; }
+        h1 { color: #0047AB; }
+        .btn-group { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
+        .btn { display: inline-block; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; }
+        .btn-primary { background-color: #0047AB; color: white; }
+        .btn-secondary { background-color: #F1F2F6; color: #2D3436; }
+    </style>
+</head>
+<body>
+    <img src="whywatt_logo.png" alt="WhyWatt Logo">
+    <p>Empowering homeowners and communities with data-driven modeling to evaluate clean energy transitions and track local electrification benchmarks.</p>
+    <div class="btn-group">
+        <a href="https://hes.whywatt.org" class="btn btn-primary">Open Simulator (HES)</a>
+        <a href="https://psi.whywatt.org" class="btn btn-secondary">View PowerShift Index</a>
+        <a href="mailto:info@whywatt.org" class="btn btn-secondary">Contact Us</a>
+    </div>
+</body>
+</html>`;
+            loadHTMLContent(fallbackHtml);
+            statusIndicator.className = 'connection-status';
+            statusIndicator.innerHTML = '<span>●</span> Offline Template';
+            welcomeOverlay.style.opacity = 0;
+            setTimeout(() => welcomeOverlay.style.display = 'none', 500);
+            showToast('⚡ Initialized with standard WhyWatt template!', 'success');
+        });
+
+        // Parse and Bind HTML elements
+        function loadHTMLContent(htmlText) {
+            originalContent = htmlText;
+            const parser = new DOMParser();
+            parsedDoc = parser.parseFromString(htmlText, 'text/html');
+            
+            // Populate basic page details
+            pageTitleInput.value = parsedDoc.querySelector('title')?.innerText || '';
+            
+            // Parse Logo
+            const img = parsedDoc.querySelector('body > img') || parsedDoc.querySelector('img');
+            if (img) {
+                logoSrcInput.value = img.getAttribute('src') || '';
+                logoAltInput.value = img.getAttribute('alt') || '';
+                
+                // Read style constraints for image width if present
+                const imgStyleRule = findCssRule('img');
+                if (imgStyleRule && imgStyleRule.style.maxWidth) {
+                    logoWidthInput.value = imgStyleRule.style.maxWidth;
+                } else {
+                    logoWidthInput.value = img.getAttribute('width') || '320px';
+                }
+            }
+
+            // Parse Paragraph Text
+            const p = parsedDoc.querySelector('body > p') || parsedDoc.querySelector('p');
+            if (p) {
+                heroTextInput.value = p.innerHTML.replace(/<br\s*\/?>/gi, '\n');
+            }
+
+            // Parse Theme Colors
+            const bodyStyleRule = findCssRule('body');
+            const primaryBtnStyleRule = findCssRule('.btn-primary');
+            const h1StyleRule = findCssRule('h1');
+            
+            if (primaryBtnStyleRule && primaryBtnStyleRule.style.backgroundColor) {
+                const color = rgbToHex(primaryBtnStyleRule.style.backgroundColor);
+                accentColorInput.value = color;
+                accentColorTextInput.value = color;
+            } else if (h1StyleRule && h1StyleRule.style.color) {
+                const color = rgbToHex(h1StyleRule.style.color);
+                accentColorInput.value = color;
+                accentColorTextInput.value = color;
+            }
+
+            if (bodyStyleRule && bodyStyleRule.style.color) {
+                const color = rgbToHex(bodyStyleRule.style.color);
+                textColorInput.value = color;
+                textColorTextInput.value = color;
+            }
+
+            // Parse Buttons
+            buildButtonsManagerList();
+            
+            // Refresh preview
+            updateLivePreview();
+        }
+
+        // Helper to find visual styling rules in the parsed Document
+        function findCssRule(selector) {
+            if (!parsedDoc) return null;
+            const style = parsedDoc.querySelector('style');
+            if (!style) return null;
+            
+            // We can temporarily attach a style element to a fake document to parse it via CSSOM
+            const tempDoc = document.implementation.createHTMLDocument();
+            const tempStyle = tempDoc.createElement('style');
+            tempStyle.textContent = style.textContent;
+            tempDoc.head.appendChild(tempStyle);
+            
+            const sheet = tempStyle.sheet;
+            if (sheet && sheet.cssRules) {
+                for (let rule of sheet.cssRules) {
+                    if (rule.selectorText && rule.selectorText.trim() === selector) {
+                        return rule;
+                    }
+                }
+            }
+            return null;
+        }
+
+        // Color helper
+        function rgbToHex(rgbStr) {
+            if (rgbStr.startsWith('#')) return rgbStr;
+            const match = rgbStr.match(/^rgb\s*\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+            if (match) {
+                const r = parseInt(match[1]).toString(16).padStart(2, '0');
+                const g = parseInt(match[2]).toString(16).padStart(2, '0');
+                const b = parseInt(match[3]).toString(16).padStart(2, '0');
+                return `#${r}${g}${b}`;
+            }
+            return '#0047AB';
+        }
+
+        // Render visual UI button managers
+        function buildButtonsManagerList() {
+            buttonsList.innerHTML = '';
+            if (!parsedDoc) return;
+            
+            const btnGroup = parsedDoc.querySelector('.btn-group');
+            if (!btnGroup) return;
+            
+            const anchors = btnGroup.querySelectorAll('a');
+            anchors.forEach((a, index) => {
+                const btnItem = document.createElement('div');
+                btnItem.className = 'button-item';
+                
+                const isPrimary = a.classList.contains('btn-primary');
+                
+                btnItem.innerHTML = `
+                    <div class="button-item-header">
+                        <span class="button-title">Button #${index + 1}</span>
+                        <button class="btn-delete" data-index="${index}" title="Remove Button">🗑️</button>
+                    </div>
+                    <div class="button-item-grid">
+                        <div class="form-group" style="margin-bottom: 8px;">
+                            <label style="font-size:9px;">Button Label</label>
+                            <input type="text" class="btn-input-label" data-index="${index}" value="${a.innerText}">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 8px;">
+                            <label style="font-size:9px;">Link / URL</label>
+                            <input type="text" class="btn-input-href" data-index="${index}" value="${a.getAttribute('href') || ''}">
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label style="font-size:9px;">Style Type</label>
+                            <select class="btn-input-style" data-index="${index}">
+                                <option value="primary" ${isPrimary ? 'selected' : ''}>Primary (Accent)</option>
+                                <option value="secondary" ${!isPrimary ? 'selected' : ''}>Secondary (Gray)</option>
+                            </select>
+                        </div>
+                    </div>
+                `;
+                
+                buttonsList.appendChild(btnItem);
+            });
+            
+            // Re-bind listeners for button inputs
+            document.querySelectorAll('.btn-input-label').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const idx = e.target.getAttribute('data-index');
+                    const value = e.target.value;
+                    const aElements = parsedDoc.querySelectorAll('.btn-group a');
+                    if (aElements[idx]) {
+                        aElements[idx].innerText = value;
+                        updateLivePreview();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-input-href').forEach(input => {
+                input.addEventListener('input', (e) => {
+                    const idx = e.target.getAttribute('data-index');
+                    const value = e.target.value;
+                    const aElements = parsedDoc.querySelectorAll('.btn-group a');
+                    if (aElements[idx]) {
+                        aElements[idx].setAttribute('href', value);
+                        updateLivePreview();
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-input-style').forEach(select => {
+                select.addEventListener('change', (e) => {
+                    const idx = e.target.getAttribute('data-index');
+                    const type = e.target.value;
+                    const aElements = parsedDoc.querySelectorAll('.btn-group a');
+                    if (aElements[idx]) {
+                        if (type === 'primary') {
+                            aElements[idx].className = 'btn btn-primary';
+                        } else {
+                            aElements[idx].className = 'btn btn-secondary';
+                        }
+                        updateLivePreview();
+                    }
+                });
+            });
+
+            // Delete buttons
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const idx = parseInt(btn.getAttribute('data-index'));
+                    const btnGroup = parsedDoc.querySelector('.btn-group');
+                    if (btnGroup) {
+                        const anchors = btnGroup.querySelectorAll('a');
+                        if (anchors[idx]) {
+                            anchors[idx].remove();
+                            loadHTMLContent(parsedDoc.documentElement.outerHTML);
+                        }
+                    }
+                });
+            });
+        }
+
+        // Add a new action button
+        btnAddButton.addEventListener('click', () => {
+            if (!parsedDoc) return;
+            let btnGroup = parsedDoc.querySelector('.btn-group');
+            
+            // If btn-group does not exist, create it
+            if (!btnGroup) {
+                btnGroup = parsedDoc.createElement('div');
+                btnGroup.className = 'btn-group';
+                parsedDoc.body.appendChild(btnGroup);
+            }
+            
+            const newAnchor = parsedDoc.createElement('a');
+            newAnchor.href = 'https://example.com';
+            newAnchor.className = 'btn btn-secondary';
+            newAnchor.innerText = 'New Button';
+            btnGroup.appendChild(newAnchor);
+            
+            // Reload DOM UI to match
+            loadHTMLContent(parsedDoc.documentElement.outerHTML);
+            showToast('Added a new secondary button!', 'success');
+        });
+
+        // Form field event listeners
+        pageTitleInput.addEventListener('input', (e) => {
+            if (!parsedDoc) return;
+            let titleEl = parsedDoc.querySelector('title');
+            if (!titleEl) {
+                titleEl = parsedDoc.createElement('title');
+                parsedDoc.head.appendChild(titleEl);
+            }
+            titleEl.innerText = e.target.value;
+            updateLivePreview();
+        });
+
+        logoSrcInput.addEventListener('input', (e) => {
+            if (!parsedDoc) return;
+            const img = parsedDoc.querySelector('body > img') || parsedDoc.querySelector('img');
+            if (img) {
+                img.setAttribute('src', e.target.value);
+                updateLivePreview();
+            }
+        });
+
+        logoAltInput.addEventListener('input', (e) => {
+            if (!parsedDoc) return;
+            const img = parsedDoc.querySelector('body > img') || parsedDoc.querySelector('img');
+            if (img) {
+                img.setAttribute('alt', e.target.value);
+                updateLivePreview();
+            }
+        });
+
+        logoWidthInput.addEventListener('input', (e) => {
+            if (!parsedDoc) return;
+            
+            // Update in the styles block (img selector)
+            let style = parsedDoc.querySelector('style');
+            if (style) {
+                let css = style.textContent;
+                // Replace img rule
+                if (css.includes('img {') || css.includes('img{')) {
+                    css = css.replace(/img\s*\{[^}]*\}/g, `img { max-width: ${e.target.value}; height: auto; margin-bottom: 20px; }`);
+                } else {
+                    css += `\nimg { max-width: ${e.target.value}; height: auto; margin-bottom: 20px; }`;
+                }
+                style.textContent = css;
+                updateLivePreview();
+            }
+        });
+
+        heroTextInput.addEventListener('input', (e) => {
+            if (!parsedDoc) return;
+            const p = parsedDoc.querySelector('body > p') || parsedDoc.querySelector('p');
+            if (p) {
+                // Preserve newlines as <br>
+                p.innerHTML = e.target.value.replace(/\n/g, '<br>');
+                updateLivePreview();
+            }
+        });
+
+        // Brand Color Input sync
+        accentColorInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            accentColorTextInput.value = val;
+            updateCssStyles();
+        });
+
+        accentColorTextInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
+                accentColorInput.value = val;
+                updateCssStyles();
+            }
+        });
+
+        textColorInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            textColorTextInput.value = val;
+            updateCssStyles();
+        });
+
+        textColorTextInput.addEventListener('input', (e) => {
+            const val = e.target.value;
+            if (val.match(/^#[0-9A-Fa-f]{6}$/)) {
+                textColorInput.value = val;
+                updateCssStyles();
+            }
+        });
+
+        // Re-generate internal style rules
+        function updateCssStyles() {
+            if (!parsedDoc) return;
+            const style = parsedDoc.querySelector('style');
+            if (style) {
+                const primaryColor = accentColorInput.value;
+                const textColor = textColorInput.value;
+                const imgWidth = logoWidthInput.value || '320px';
+                
+                // Write clean custom visual layout CSS
+                style.textContent = `
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; color: ${textColor}; max-width: 800px; margin: 80px auto; padding: 0 20px; line-height: 1.6; text-align: center; }
+        img { max-width: ${imgWidth}; height: auto; margin-bottom: 20px; }
+        h1 { color: ${primaryColor}; }
+        .btn-group { margin-top: 40px; display: flex; justify-content: center; gap: 20px; }
+        .btn { display: inline-block; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; }
+        .btn-primary { background-color: ${primaryColor}; color: white; }
+        .btn-secondary { background-color: #F1F2F6; color: ${textColor}; }
+    `;
+                updateLivePreview();
+            }
+        }
+
+        // Generate full clean document HTML string
+        function generateCleanHTML() {
+            if (!parsedDoc) return "";
+            
+            // To ensure we get beautiful, cleanly formatted HTML, we do some simple cleanup
+            let docString = parsedDoc.documentElement.outerHTML;
+            
+            // Format HTML beautiful layout
+            let formatted = "<!DOCTYPE html>\n" + docString;
+            
+            return formatted;
+        }
+
+        // Update programmatically written iframe preview
+        function updateLivePreview() {
+            if (!parsedDoc) return;
+            
+            const iframeDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+            if (iframeDoc) {
+                const code = generateCleanHTML();
+                iframeDoc.open();
+                iframeDoc.write(code);
+                iframeDoc.close();
+            }
+        }
+
+        // Save File Handle
+        btnSaveFile.addEventListener('click', async () => {
+            if (!parsedDoc || !fileHandle) return;
+            
+            try {
+                const writable = await fileHandle.createWritable();
+                const cleanCode = generateCleanHTML();
+                await writable.write(cleanCode);
+                await writable.close();
+                
+                showToast('💾 Successfully saved changes directly to index.html!', 'success');
+            } catch (err) {
+                console.error(err);
+                showToast('Failed to save file. Ensure browser has write permissions.', 'error');
+            }
+        });
+
+        // Download Fallback
+        btnDownloadFile.addEventListener('click', () => {
+            if (!parsedDoc) return;
+            const code = generateCleanHTML();
+            
+            const blob = new Blob([code], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('📥 Downloaded updated index.html successfully!', 'success');
+        });
+
+        // Copy HTML Code
+        btnCopyCode.addEventListener('click', () => {
+            if (!parsedDoc) return;
+            const code = generateCleanHTML();
+            
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('📋 Copied visual HTML to clipboard!', 'success');
+            }).catch(err => {
+                showToast('Failed to copy to clipboard.', 'error');
+            });
+        });
+
+        // Show Toast Notifications
+        function showToast(msg, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastIcon = document.getElementById('toastIcon');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = msg;
+            
+            if (type === 'success') {
+                toast.className = 'notification-toast';
+                toastIcon.textContent = '✓';
+            } else if (type === 'warning') {
+                toast.className = 'notification-toast';
+                toast.style.background = 'rgba(245, 158, 11, 0.95)';
+                toastIcon.textContent = '⚠️';
+            } else {
+                toast.className = 'notification-toast error';
+                toastIcon.textContent = '✗';
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 4000);
+        }
+    </script>
+</body>
+</html>
