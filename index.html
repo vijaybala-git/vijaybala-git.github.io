@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,59 +9,169 @@
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             color: #2D3436;
-            max-width: 800px;
-            margin: 80px auto;
+            max-width: 850px;
+            margin: 60px auto;
             padding: 0 20px;
             line-height: 1.6;
-            text-align: center;
+            background-color: #FAFAFA;
         }
 
-        img {
-            max-width: 320px;
-            height: auto;
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo-container {
+            display: inline-block;
             margin-bottom: 20px;
         }
 
-        h1 {
-            color: #0047AB;
+        .intro-text {
+            max-width: 650px;
+            margin: 0 auto;
+            color: #4A5568;
         }
 
-        .btn-group {
+        /* 2-Column Responsive Table Layout */
+        .tools-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 16px; /* Space between rows */
+            text-align: left;
             margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
         }
 
+        .tools-table tr {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+            border-radius: 8px;
+        }
+
+        /* 1st Column: Big Button */
+        .tools-table td:first-child {
+            width: 35%;
+            padding: 16px;
+            border-top-left-radius: 8px;
+            border-bottom-left-radius: 8px;
+        }
+
+        /* 2nd Column: Description Text */
+        .tools-table td:last-child {
+            width: 65%;
+            padding: 16px 24px;
+            border-top-right-radius: 8px;
+            border-bottom-right-radius: 8px;
+            font-size: 15px;
+            color: #4A5568;
+            vertical-align: middle;
+        }
+
+        /* Button Styling */
         .btn {
-            display: inline-block;
-            padding: 12px 24px;
+            display: block;
+            text-align: center;
+            padding: 14px 20px;
             text-decoration: none;
             border-radius: 6px;
             font-weight: bold;
+            transition: background-color 0.15s ease;
+            font-size: 15px;
+            box-sizing: border-box;
         }
 
         .btn-primary {
-            background-color: #0047AB;
+            background-color: #0d47a1; /* Matches your SVG primary text blue */
             color: white;
         }
 
+        .btn-primary:hover {
+            background-color: #0a377d;
+        }
+
         .btn-secondary {
-            background-color: #F1F2F6;
-            color: #2D3436;
+            background-color: #53676c; /* Matches your SVG plug prong gray */
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #3e4e52;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 600px) {
+            .tools-table, .tools-table tbody, .tools-table tr, .tools-table td {
+                display: block;
+                width: 100% !important;
+            }
+            .tools-table tr {
+                margin-bottom: 16px;
+            }
+            .tools-table td:first-child {
+                border-radius: 8px 8px 0 0;
+                padding-bottom: 8px;
+            }
+            .tools-table td:last-child {
+                border-radius: 0 0 8px 8px;
+                padding-top: 0;
+                padding-bottom: 20px;
+            }
         }
     </style>
 </head>
 
 <body>
-    <img src="whywatt_web_logo.png" alt="WhyWatt Logo">
-    <p>Empowering homeowners and communities with data-driven modeling to evaluate clean energy transitions and track
-        local electrification benchmarks.</p>
-    <div class="btn-group">
-        <a href="https://hes.whywatt.org" class="btn btn-primary">Home Electrification Simulator (HES)</a>
-        <a href="https://psi.whywatt.org" class="btn btn-primary">PowerShift Index (PSI)</a>
-        <a href="mailto:vijay@whywatt.org" class="btn btn-primary">Contact Us</a>
+
+    <div class="header">
+        <!-- Inline WhyWatt? SVG Logo -->
+        <div class="logo-container">
+            <svg width="320" height="100" viewBox="0 0 320 100" version="1.1" id="svg4" xmlns="http://www.w3.org/2000/svg">
+                <title id="title1">WhyWatt — Home Electrification Simulator</title>
+                <path d="M8 84 L8 44 L44 8 L80 44 L80 84 Z" fill="#EEF2FF" stroke="#0D47A1" stroke-width="3.5" stroke-linejoin="round" id="path1" />
+                <rect x="30.973" y="44.513" width="8" height="18" rx="4" fill="#EC9B1E" id="rect1" style="fill:#53676c" />
+                <rect x="49.895" y="47.27" width="8" height="13" rx="4" fill="#EC9B1E" id="rect2" style="fill:#53676c" />
+                <path d="M 40.487 67 L 40.487 72 C 43.154 75.333 45.82 75.333 48.487 72 L 48.487 67 L 40.487 67 Z" fill="#EC9B1E" id="path2" style="fill:#53676c" />
+                <text x="96" y="50" font-family="system-ui, '-apple-system', Arial, sans-serif" font-size="29px" font-weight="800" fill="#0d47a1" style="white-space:pre" id="text3"><tspan style="fill:#535d6c" id="tspan1">Why</tspan>Watt?</text>
+                <text x="162.92038" y="66.23423" font-family="system-ui, '-apple-system', Arial, sans-serif" fill="#78909c" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre" id="text4"><tspan sodipodi:role="line" x="162.92038" y="66.23423" id="tspan6" style="font-size:8px;fill:#53676c">  Home Electrification Simulator</tspan></text>
+            </svg>
+        </div>
+        
+        <p class="intro-text">Empowering homeowners and communities with data-driven modeling to evaluate clean energy transitions and track local electrification benchmarks.</p>
     </div>
+
+    <!-- 2-Column Table for Links & Descriptions -->
+    <table class="tools-table">
+        <tbody>
+            
+            <!-- Row 1: HEX -->
+            <tr>
+                <td>
+                    <a href="https://hes.whywatt.org" class="btn btn-primary">Home Electrification Explorer (HEX)</a>
+                </td>
+                <td>
+                    <strong>Home Electrification Explorer:</strong> Explore your options and benefits of electrifying your appliances.
+                </td>
+            </tr>
+
+            <!-- Row 2: PowerShift Index -->
+            <tr>
+                <td>
+                    <a href="https://psi.whywatt.org" class="btn btn-primary">PowerShift Index (PSI)</a>
+                </td>
+                <td>
+                    <strong>PowerShift Index:</strong> Tracking Gas and Electricity usage for Santa Clara Cities.
+                </td>
+            </tr>
+
+            <!-- Row 3: Contact (No Text Description) -->
+            <tr>
+                <td>
+                    <a href="mailto:vijay@whywatt.org" class="btn btn-secondary">Contact Us</a>
+                </td>
+                <td><!-- Left empty intentionally --></td>
+            </tr>
+
+        </tbody>
+    </table>
 
 </body>
 
