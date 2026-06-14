@@ -88,6 +88,7 @@
   #s-intro .pillrow{ margin-top:.8em; }
   #s-intro .footmark{ bottom:3%; }
   #s-intro h1{ font-size:1.5em;max-width:20ch; }
+  #s-intro .h1-sub{ font-size:.66em;color:var(--slate);font-weight:500; }
   #s-intro .lede{ font-size:.82em;max-width:30em;margin-top:.2em; }
   .pillrow{ display:flex;gap:.5em;flex-wrap:wrap;margin-top:1.1em; }
   .pill{
@@ -225,7 +226,7 @@
           </span>
         </div>
 
-        <h1>Map your home electrification journey. Weigh the cost. Then decide.</h1>
+        <h1>Map your home electrification journey. <span class="h1-sub">Weigh the cost-benefit, then decide.</span></h1>
         <p class="lede">
           WhyWatt? is a <strong>community-developed, open and transparent</strong> tool to explore your
           electrification options, timeline, and benefits for your home.
@@ -358,36 +359,24 @@
       <p class="eyebrow" style="margin:0;color:var(--slate);">Replace-on-failure</p>
     </div>
     <h2>The Technophile</h2>
-    <div class="split" style="grid-template-columns:1fr 1.18fr;">
-      <!-- left: persona + plan -->
+    <div class="split" style="grid-template-columns:1fr .82fr;">
+      <!-- left: persona + the three messages -->
       <div>
-        <p class="lede" style="font-size:.7em;">
-          Researches options and costs carefully, but isn't especially price-sensitive.
-          Wants the right system — and wants to time it well.
+        <p class="lede" style="font-size:.66em;">
+          Researches carefully, replaces on failure, and isn't especially price-sensitive.
+          Goes heat pump for both heating and hot water.
         </p>
-        <ul class="traits">
-          <li><b>Replaces on failure.</b> Furnace and water heater are both near end-of-life — a swap is coming in <b>under 3 years</b>.</li>
-          <li><b>Heat-pump ready.</b> Drawn to efficiency (COP 3.5, SEER 22) and the cleaner long-run trajectory.</li>
-          <li><b>Rebate-aware, not rebate-driven.</b> Takes the <b>$3,500</b> HVAC rebate, but it isn't the deciding factor.</li>
+        <ul class="feat">
+          <li><b>No real payback.</b> Even at <span class="metric">year 22</span> the journey is only <span class="metric s">+$632</span> ahead on energy alone — essentially break-even.</li>
+          <li><b>Social cost makes the case.</b> Count avoided CO₂, methane &amp; air-quality harm and it's <span class="metric s">+$20,561</span> better — that's where the real value sits.</li>
+          <li><b>You're buying cooling, too.</b> The Bay Area default has <b>no AC</b>. The heat pump adds cooling the home never had — so part of the spend buys comfort, not just fuel savings.</li>
         </ul>
-
-        <div class="planchips" style="margin-top:.85em;">
-          <span class="chip on"><b>HVAC</b> → heat pump · Yr 3 (2027)</span>
-          <span class="chip on"><b>Water heater</b> → HPWH · Yr 5 (2029)</span>
-          <span class="chip"><b>EV / cooktop / dryer</b> · later</span>
-        </div>
-
-        <div class="outcome" style="margin-top:.9em;">
-          <div class="k">HVAC swap · net cost</div>
-          <div class="v">$10,500 <span style="font-size:.46em;color:var(--slate);font-family:'JetBrains Mono';font-weight:500;">after $3,500 rebate</span></div>
-        </div>
       </div>
 
-      <!-- right: HVAC detail screenshot — to be generated from the tool -->
-      <div class="placeholder">
-        <div class="ico">▢</div>
-        <div class="lbl">Screenshot to be generated</div>
-        <div class="path">images/scenario-01-technophile.jpg</div>
+      <!-- right: full-app screenshot, payback / social-cost box ringed -->
+      <div class="shotwrap" style="max-width:465px;justify-self:center;align-self:center;">
+        <img class="shot" src="images/Technophile.jpg" alt="Technophile scenario — payback only +$632 at year 22, +$20,561 social cost avoided, heat-pump HVAC and water heater">
+        <div class="ring s" style="left:1.5%;top:5.5%;width:21%;height:8.5%;"></div>
       </div>
     </div>
   </div>
@@ -402,37 +391,26 @@
       <p class="eyebrow" style="margin:0;color:var(--slate);">Appliance refresh + EV</p>
     </div>
     <h2>The EV Family</h2>
-    <div class="split" style="grid-template-columns:1.18fr 1fr;">
-      <!-- left: journey-devices screenshot — to be generated from the tool -->
-      <div class="placeholder">
-        <div class="ico">▢</div>
-        <div class="lbl">Screenshot to be generated</div>
-        <div class="path">images/scenario-02-ev-family.jpg</div>
+    <div class="split" style="grid-template-columns:.82fr 1fr;">
+      <!-- left: full-app screenshot — panel, payback & solar ringed -->
+      <div class="shotwrap" style="max-width:450px;justify-self:center;align-self:center;">
+        <img class="shot" src="images/EV-famly.jpg" alt="EV Family scenario — peak demand 119A exceeds 100A forcing a panel upgrade; solar brings payback in year 13 at +$11,380">
+        <div class="ring" style="left:1.5%;top:5.5%;width:21%;height:8.5%;"></div>
+        <div class="ring n" style="left:80%;top:5.5%;width:19%;height:9%;"></div>
+        <div class="ring s" style="left:10.5%;top:19.5%;width:18%;height:9%;"></div>
       </div>
 
-      <!-- right: persona + plan -->
+      <!-- right: persona + the messages -->
       <div>
-        <p class="lede" style="font-size:.7em;">
-          An EV-owning, socially-conscious household. Health and climate costs matter as much as
-          the bill — and they're ready to move off gas appliance by appliance.
+        <p class="lede" style="font-size:.66em;">
+          An EV-owning, socially-minded household — adds a charger, moves appliances off gas,
+          and layers in solar + battery.
         </p>
-        <ul class="traits s2">
-          <li><b>Already driving electric.</b> Adds the <b>L2 charger</b> to the model — 7,000 mi/yr of charging load.</li>
-          <li><b>Appliance refresh.</b> Plans the <b>cooktop and dryer</b> swaps, plus a <b>baseload efficiency</b> pass.</li>
-          <li><b>Counts the hidden costs.</b> Keeps CO₂/methane and air-quality costs <b>on</b> — adding $2.30/therm of avoided harm.</li>
+        <ul class="feat s2">
+          <li><b>The panel becomes the constraint.</b> Adding EV charging pushes peak demand to <span class="metric n">119 A</span> — past the 100 A limit, forcing a <span class="metric n">200 A panel upgrade</span>.</li>
+          <li><b>Solar is what tips it positive.</b> With <span class="metric s">solar + battery</span> layered in, the journey reaches payback in <span class="metric">year 13 (2037)</span>, <span class="metric s">+$11,380</span> ahead — without it, it stays underwater.</li>
+          <li><b>Strong social return, too.</b> <span class="metric s">+$20,599</span> in avoided climate &amp; health cost on top.</li>
         </ul>
-
-        <div class="planchips">
-          <span class="chip s2 on"><b>EV</b> · L2 charger</span>
-          <span class="chip s2 on"><b>Cooktop</b> → induction</span>
-          <span class="chip s2 on"><b>Dryer</b> → heat pump</span>
-          <span class="chip s2 on"><b>Panel</b> + baseload</span>
-        </div>
-
-        <div class="outcome" style="border-color:var(--solar);">
-          <div class="k">Year-one verdict · net social cost avoided</div>
-          <div class="v" style="color:var(--solar);">+$18,627</div>
-        </div>
       </div>
     </div>
   </div>
