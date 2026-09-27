@@ -1,178 +1,319 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhyWatt? | Supporting Home Electrification</title>
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            color: #2D3436;
-            max-width: 850px;
-            margin: 60px auto;
-            padding: 0 20px;
-            line-height: 1.6;
-            background-color: #FAFAFA;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .logo-container {
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .intro-text {
-            max-width: 650px;
-            margin: 0 auto;
-            color: #4A5568;
-        }
-
-        /* 2-Column Responsive Table Layout */
-        .tools-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0 16px; /* Space between rows */
-            text-align: left;
-            margin-top: 40px;
-        }
-
-        .tools-table tr {
-            background-color: #ffffff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
-            border-radius: 8px;
-        }
-
-        /* 1st Column: Big Button */
-        .tools-table td:first-child {
-            width: 35%;
-            padding: 16px;
-            border-top-left-radius: 8px;
-            border-bottom-left-radius: 8px;
-        }
-
-        /* 2nd Column: Description Text */
-        .tools-table td:last-child {
-            width: 65%;
-            padding: 16px 24px;
-            border-top-right-radius: 8px;
-            border-bottom-right-radius: 8px;
-            font-size: 15px;
-            color: #4A5568;
-            vertical-align: middle;
-        }
-
-        /* Button Styling */
-        .btn {
-            display: block;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-            transition: background-color 0.15s ease;
-            font-size: 15px;
-            box-sizing: border-box;
-        }
-
-        .btn-primary {
-            background-color: #0d47a1; /* Matches your SVG primary text blue */
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #0a377d;
-        }
-
-        .btn-secondary {
-            background-color: #53676c; /* Matches your SVG plug prong gray */
-            color: white;
-        }
-
-        .btn-secondary:hover {
-            background-color: #3e4e52;
-        }
-
-        /* Mobile Optimization */
-        @media (max-width: 600px) {
-            .tools-table, .tools-table tbody, .tools-table tr, .tools-table td {
-                display: block;
-                width: 100% !important;
-            }
-            .tools-table tr {
-                margin-bottom: 16px;
-            }
-            .tools-table td:first-child {
-                border-radius: 8px 8px 0 0;
-                padding-bottom: 8px;
-            }
-            .tools-table td:last-child {
-                border-radius: 0 0 8px 8px;
-                padding-top: 0;
-                padding-bottom: 20px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhyWatt? Home Electrification eXplorer</title>
+  <meta name="description" content="WhyWatt? Home Electrification eXplorer (WhyWatt? HEX) is an open-source, community-developed decision engine comparing 20-year costs of full home electrification vs. doing nothing.">
+  <link rel="icon" type="image/svg+xml" href="assets/WhyWatt_hex_logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      background-color: #fcfdfe;
+    }
+    .hero-title-editorial {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 42px;
+      font-weight: 700;
+      line-height: 1.16;
+      color: #16202e;
+      letter-spacing: -0.02em;
+      margin-bottom: 22px;
+    }
+    .hero-title-editorial em {
+      font-style: italic;
+      color: var(--primary);
+    }
+    .editorial-badge {
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--journey-blue);
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      padding: 4px 12px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .editorial-lede {
+      font-size: 16.5px;
+      line-height: 1.7;
+      color: #334155;
+      margin-bottom: 16px;
+    }
+    .editorial-quote-box {
+      border-left: 3px solid var(--accent-amber);
+      padding: 12px 18px;
+      background: #fffbeb;
+      border-radius: 0 8px 8px 0;
+      margin: 18px 0 26px;
+      font-size: 14px;
+      color: #92400e;
+      line-height: 1.55;
+    }
+    .clickable-slide-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+    }
+  </style>
 </head>
-
 <body>
 
-    <div class="header">
-        <!-- Inline WhyWatt? SVG Logo -->
-        <div class="logo-container">
-            <svg width="320" height="100" viewBox="0 0 320 100" version="1.1" id="svg4" xmlns="http://www.w3.org/2000/svg">
-                <title id="title1">WhyWatt — Home Electrification Simulator</title>
-                <path d="M8 84 L8 44 L44 8 L80 44 L80 84 Z" fill="#EEF2FF" stroke="#0D47A1" stroke-width="3.5" stroke-linejoin="round" id="path1" />
-                <rect x="30.973" y="44.513" width="8" height="18" rx="4" fill="#EC9B1E" id="rect1" style="fill:#53676c" />
-                <rect x="49.895" y="47.27" width="8" height="13" rx="4" fill="#EC9B1E" id="rect2" style="fill:#53676c" />
-                <path d="M 40.487 67 L 40.487 72 C 43.154 75.333 45.82 75.333 48.487 72 L 48.487 67 L 40.487 67 Z" fill="#EC9B1E" id="path2" style="fill:#53676c" />
-                <text x="96" y="50" font-family="system-ui, '-apple-system', Arial, sans-serif" font-size="29px" font-weight="800" fill="#0d47a1" style="white-space:pre" id="text3"><tspan style="fill:#535d6c" id="tspan1">Why</tspan>Watt?</text>
-                <text x="162.92038" y="66.23423" font-family="system-ui, '-apple-system', Arial, sans-serif" fill="#78909c" style="font-size:16px;text-align:center;text-anchor:middle;white-space:pre" id="text4"><tspan sodipodi:role="line" x="162.92038" y="66.23423" id="tspan6" style="font-size:8px;fill:#53676c">  Home Electrification Simulator</tspan></text>
-            </svg>
-        </div>
-        
-        <p class="intro-text">Empowering homeowners and communities with data-driven modeling to evaluate clean energy transitions and track local electrification benchmarks.</p>
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link" title="WhyWatt? Home Electrification eXplorer">
+        <img src="assets/WhyWatt_hex_logo.svg" alt="WhyWatt? Home Electrification eXplorer Logo" class="brand-logo-img">
+      </a>
+
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Toggle Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item"><a href="index.html" class="active">Home</a></li>
+          <li class="nav-item"><a href="about.html">About</a></li>
+          <li class="nav-item"><a href="community.html">Community</a></li>
+          <li class="nav-item"><a href="explainer/index.html">How It's Built</a></li>
+          <li class="nav-item"><a href="presentations/intro_whywatt_v1/index.html">Visual Intro</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer" class="btn btn-launch btn-sm" title="Launch Home Electrification eXplorer">
+          <span><span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
     </div>
+  </header>
 
-    <!-- 2-Column Table for Links & Descriptions -->
-    <table class="tools-table">
-        <tbody>
+  <!-- Hero Section: Editorial Story Format -->
+  <section class="hero-section" style="background:#ffffff;padding-top:48px;border-bottom:1px solid var(--line);">
+    <div class="container">
+      <div class="hero-grid" style="grid-template-columns: 1.05fr 0.95fr;">
+        
+        <!-- Left Column: 2-Paragraph Introduction + Callout + Action Buttons -->
+        <div>
+          <div class="editorial-badge">Perspective • WhyWatt? HEX</div>
+          
+          <h1 class="hero-title-editorial">
+            Map your home electrification journey. <em>Weigh the true cost-benefit,</em> then decide.
+          </h1>
+
+          <div class="hero-body">
+            <p class="editorial-lede">
+              <strong>WhyWatt? <span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer (WhyWatt? HEX)</strong> is a transparent, open-source decision engine designed to help California homeowners and community advocates navigate the transition from fossil gas to clean electric energy. Built with Python, Mesa agent-based modeling, and Solara, it models your household's actual energy demand—from heat pumps and induction cooktops to EV charging, rooftop solar, and home battery storage like the Tesla Powerwall—grounded in real California climate data and utility tariffs.
+            </p>
+            <p class="editorial-lede">
+              Rather than pushing equipment sales or arbitrary estimates, <strong>WhyWatt? HEX</strong> compares two 20-year trajectories side by side: <strong>Your Journey</strong> of phased clean upgrades versus a <strong>Do Nothing</strong> baseline where aging gas appliances are replaced like-for-like as utility rates rise. By combining NREL hourly load shapes, CPUC-calibrated rate projections, and real time-of-use pricing, WhyWatt? HEX empowers you to see exactly when and how electrification pays for itself.
+            </p>
+          </div>
+
+          <div class="editorial-quote-box">
+            <strong>Unbiased by Design:</strong> Zero affiliate links, zero contractor referral markups. Community-developed and 100% open source.
+          </div>
+
+          <!-- Dual Hero Action Buttons -->
+          <div class="hero-cta-group">
+            <a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer" class="btn btn-launch btn-lg">
+              <span><span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
             
-            <!-- Row 1: HEX -->
-            <tr>
-                <td>
-                    <a href="https://hes.whywatt.org" class="btn btn-primary">Home Electrification Explorer (HEX)</a>
-                </td>
-                <td>
-                    <strong>Home Electrification Explorer:</strong> Explore your options and benefits of electrifying your appliances. <a href="/presentations/intro_whywatt_v1/" style="color:#0d47a1;font-weight:600;text-decoration:none;white-space:nowrap;">Introduction&nbsp;&rarr;</a>
-                </td>
-            </tr>
+            <a href="https://huggingface.co/spaces/vijaybala-hug/hes-prototype" target="_blank" rel="noopener noreferrer" class="btn btn-beta btn-lg">
+              <span>Explore the Latest Features (Beta)</span>
+              <span class="badge-tag">Warning: May have issues</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+          </div>
 
-            <!-- Row 2: PowerShift Index -->
-            <tr>
-                <td>
-                    <a href="https://psi.whywatt.org" class="btn btn-primary">PowerShift Index (PSI)</a>
-                </td>
-                <td>
-                    <strong>PowerShift Index:</strong> Tracking Gas and Electricity usage for Santa Clara Cities.
-                </td>
-            </tr>
+          <div class="pill-row" style="margin-top:10px;">
+            <span class="pill-badge"><strong>20-Year</strong> Cost Trajectories</span>
+            <span class="pill-badge"><strong>16 CEC</strong> Climate Zones</span>
+            <span class="pill-badge"><strong>NREL</strong> Hourly Load Profiles</span>
+            <span class="pill-badge"><strong>URDB</strong> Time-of-Use Rates</span>
+          </div>
+        </div>
 
-            <!-- Row 3: Contact (No Text Description) -->
-            <tr>
-                <td>
-                    <a href="mailto:vijay@whywatt.org" class="btn btn-secondary">Contact Us</a>
-                </td>
-                <td><!-- Left empty intentionally --></td>
-            </tr>
+        <!-- Right Column: Cockpit Image (Clicking Entire Card Navigates Directly to Slide Deck) -->
+        <div>
+          <a href="presentations/intro_whywatt_v1/index.html" class="clickable-slide-card" title="Click to view interactive intro presentation slides">
+            <div class="hero-image-card" style="box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12); cursor: pointer;">
+              <div class="card-window-bar">
+                <div class="window-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="window-title">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                  whywatt // visual-intro-deck
+                </div>
+              </div>
 
-        </tbody>
-    </table>
+              <div class="card-image-wrap">
+                <img src="assets/images/whywatt-top-cockpit.jpg" alt="WhyWatt Cockpit Dashboard showing the verdict, cost bars, and 20-year cumulative trajectories">
+                <div class="image-overlay-badge" style="background:rgba(13, 71, 161, 0.94);">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>Click to Open Visual Intro Slides &rarr;</span>
+                </div>
+              </div>
 
+              <div class="hero-image-caption">
+                <span><strong>The Cockpit View:</strong> Net financial verdict, 20-year cost delta, and panel limits.</span>
+                <span style="font-weight:700;font-size:13px;color:var(--primary);display:flex;align-items:center;gap:4px;">
+                  Open Slides &rarr;
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: System Architecture & Methodology (Simplified as Requested) -->
+  <section class="section section-alt" id="how-its-built">
+    <div class="container">
+      
+      <div class="section-head" style="margin-bottom:32px;">
+        <div class="eyebrow" style="background:#e6f6f2;color:#0f8a6f;border-color:rgba(15,138,111,0.2);">
+          System Architecture &amp; Methodology
+        </div>
+        <h2 class="section-title">Learn How WhyWatt? HEX Is Built</h2>
+        <p class="section-desc">
+          Everything in WhyWatt? HEX is transparent and auditable. Discover how offline data harvesting, appliance thermodynamics, and dual-agent simulation turn a California home into a comprehensive 20-year energy forecast.
+        </p>
+      </div>
+
+      <!-- Explainer Banner Preview -->
+      <div class="explainer-banner" style="margin-bottom:0;">
+        <div class="banner-grid">
+          <div class="banner-content">
+            <h3>How WhyWatt Turns a Home Energy Consumption into a 20-Year Cost Comparison</h3>
+            <p>
+              You describe a home and an upgrade timeline. Your ZIP code resolves climate, local utility tariffs, hourly load profiles, and solar irradiance from offline-pinned datasets. The Mesa simulation engine runs two parallel homes year by year.
+            </p>
+            
+            <div class="flow-diagram-preview">
+              <div class="flow-step">Home Config + ZIP</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-step active">5 Offline Data Sources</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-step">9 Appliance Models</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-step active">Mesa Dual Loop</div>
+              <div class="flow-arrow">&rarr;</div>
+              <div class="flow-step">Payback &amp; Emissions</div>
+            </div>
+          </div>
+
+          <div class="banner-action">
+            <a href="explainer/index.html" class="btn btn-white btn-lg">
+              <span>Explore Interactive Explainer</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Site Footer (Ready-to-explore big box removed as requested) -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <img src="assets/WhyWatt_hex_logo_dark.svg" alt="WhyWatt Logo" style="height:48px;width:auto;margin-bottom:12px;">
+          <p>
+            An open, data-driven modeling platform empowering homeowners and community advocates to evaluate clean energy transitions without sales bias.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About WhyWatt? HEX</a></li>
+            <li><a href="community.html">Community (Discord)</a></li>
+            <li><a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer"><span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Documentation</h5>
+          <ul>
+            <li><a href="explainer/index.html">System Explainer</a></li>
+            <li><a href="explainer/pipelines/climate.html">Data Pipelines</a></li>
+            <li><a href="explainer/appliances/index.html">Appliance Models</a></li>
+            <li><a href="presentations/intro_whywatt_v1/index.html">Visual Intro Slides</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Community &amp; Source</h5>
+          <ul>
+            <li><a href="https://discord.gg/NreyDh9mt2" target="_blank" rel="noopener noreferrer">Discord Server</a></li>
+            <li><a href="mailto:vijay@whywatt.org">Contact Us (Email)</a></li>
+            <li><a href="https://github.com/vijaybala-git/hes" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div class="collaboration-tag">
+          <img src="assets/echo_icon.svg" alt="Electrification Collaboration Logo" style="height:24px;width:auto;display:inline-block;">
+          <span>Supported by the <strong>Electrification Collaboration</strong></span>
+        </div>
+        <div>
+          &copy; 2026 WhyWatt.org • Open Source &amp; Method
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Responsive Navigation Toggle
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+    }
+  </script>
 </body>
-
 </html>

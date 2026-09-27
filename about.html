@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | WhyWatt? Home Electrification eXplorer</title>
+  <meta name="description" content="Learn about WhyWatt? Home Electrification eXplorer (WhyWatt? HEX), an open-source, community-led platform bringing transparent, physics-based decision tools to homeowners and clean energy advocates.">
+  <link rel="icon" type="image/svg+xml" href="assets/WhyWatt_hex_logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="brand-link" title="WhyWatt? Home Electrification eXplorer">
+        <img src="assets/WhyWatt_hex_logo.svg" alt="WhyWatt? Home Electrification eXplorer Logo" class="brand-logo-img">
+      </a>
+
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Toggle Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item"><a href="index.html">Home</a></li>
+          <li class="nav-item"><a href="about.html" class="active">About</a></li>
+          <li class="nav-item"><a href="community.html">Community</a></li>
+          <li class="nav-item"><a href="explainer/index.html">How It's Built</a></li>
+          <li class="nav-item"><a href="presentations/intro_whywatt_v1/index.html">Visual Intro</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer" class="btn btn-launch btn-sm" title="Launch Home Electrification eXplorer">
+          <span><span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Header -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="eyebrow">About the Project</div>
+      <h1 class="page-hero-title">Transparent Modeling for the Clean Energy Transition</h1>
+      <p class="page-hero-lede">
+        WhyWatt? <span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer (WhyWatt? HEX) is an independent, community-developed decision engine built to give California homeowners and electrification advocates clarity, confidence, and honest numbers.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Article Content -->
+  <main class="content-section">
+    <div class="container">
+      <article class="article-content">
+        
+        <h2>The Challenge: Navigating Electrification Without the Sales Pitch</h2>
+        <p>
+          Replacing fossil gas furnaces, water heaters, cooktops, and gas-powered cars with clean electric heat pumps, induction stoves, and EVs is the single most effective climate action an individual household can take.
+        </p>
+        <p>
+          However, homeowners attempting this transition today face a fragmented landscape: contractor quotes with massive markups, confusing solar and battery lease proposals, and contradictory advice on whether a 100A or 200A electrical service panel upgrade is needed. Most online calculators are sales funnels engineered to capture contact information rather than provide neutral, physics-based guidance.
+        </p>
+        
+        <div class="callout-box">
+          <p>
+            <strong>Our Core Principle:</strong> WhyWatt? HEX has no commercial affiliates, sells no equipment, and takes no commissions. The software, data pipelines, and thermodynamic models are 100% open source and community-developed.
+          </p>
+        </div>
+
+        <h2>The WhyWatt? HEX Approach: "Your Journey" vs. "Do Nothing"</h2>
+        <p>
+          Home electrification is rarely an overnight event; it is a multi-year journey. A heat pump water heater might make sense this year because the old tank is failing, while a central heat pump HVAC upgrade might wait until your existing AC reaches end of life.
+        </p>
+        <p>
+          WhyWatt? <span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer models your household over a <strong>20-year horizon</strong> by executing two parallel simulations simultaneously:
+        </p>
+        <ul>
+          <li>
+            <strong>Your Electrification Journey:</strong> You choose which appliances to swap, when to install them, and whether to add rooftop solar or home battery storage (e.g. Tesla Powerwall 3).
+          </li>
+          <li>
+            <strong>The "Do Nothing" Baseline:</strong> The model runs an identical home that stays on gas. When existing appliances reach the end of their useful lifespans, they are replaced like-for-like with gas equipment, continuing to burn fuel as utility gas rates escalate.
+          </li>
+        </ul>
+        <p>
+          By stepping both homes through each calendar year, WhyWatt? HEX calculates the real cumulative cashflow, annual utility bills, maintenance expenses, social cost of carbon avoided, and the exact year your clean energy investments achieve net payback.
+        </p>
+
+        <h2>Built on Rigorous California Data</h2>
+        <p>
+          Generalizations fail because energy economics are hyper-local. WhyWatt? HEX grounds every simulation in authoritative, checksum-pinned datasets looked up by ZIP code:
+        </p>
+        <ul>
+          <li>
+            <strong>CEC Climate Zones &amp; TMYx Weather:</strong> High-resolution typical meteorological year weather data matching your specific California microclimate zone.
+          </li>
+          <li>
+            <strong>NREL ResStock 2025.1 Load Profiles:</strong> 24-hour hourly load shapes for each appliance and climate zone, accurately modeling heating, cooling, and water draw patterns.
+          </li>
+          <li>
+            <strong>Actual Utility Tariffs from URDB:</strong> Real time-of-use (TOU) rate schedules from PG&amp;E, SCE, SDG&amp;E, SMUD, and municipal utilities, including peak/off-peak windows, baseline allowances, and monthly fixed charges.
+          </li>
+          <li>
+            <strong>PVWatts &amp; NEM 3.0 / Net Billing:</strong> Hourly solar generation profiles paired with the CPUC Avoided Cost Calculator (ACC) to accurately reflect modern export compensation.
+          </li>
+          <li>
+            <strong>Historically-Calibrated Rate Projections:</strong> Tested against California energy escalation trends (Conservative, Moderate, and Stress projections) so you aren't surprised by future price spikes.
+          </li>
+        </ul>
+
+        <div class="callout-box callout-solar">
+          <p>
+            <strong>Learn How It's Built:</strong> Curious about the exact equations and algorithms? Visit our interactive <a href="explainer/index.html" style="color:#0f8a6f;font-weight:700;text-decoration:underline;">Architecture Explainer</a> to explore the offline pipelines, appliance models, and Mesa simulation loop.
+          </p>
+        </div>
+
+        <h2>Technology &amp; Architecture</h2>
+        <p>
+          WhyWatt? HEX is engineered with a modern, high-performance Python data science stack:
+        </p>
+        <ul>
+          <li><strong>Mesa Framework:</strong> An agent-based simulation architecture that steps each household model year by year, managing equipment state transitions and financial bookkeeping.</li>
+          <li><strong>Solara Web Framework:</strong> Provides a reactive, pure-Python UI running directly in the browser with near-instant recalculations as you adjust sliders.</li>
+          <li><strong>Offline Data Pipelines:</strong> Robust Python harvesters that pre-compute and validate massive datasets (NREL, URDB, PVWatts) to ensure the web app remains blisteringly fast.</li>
+        </ul>
+
+        <h2>Who We Are</h2>
+        <p>
+          WhyWatt? HEX was conceived and developed by California community clean energy advocates, engineers, and volunteers who believe that open data is essential for equitable climate progress.
+        </p>
+        <p>
+          The project is supported by the <strong>Electrification Collaboration</strong>, a coalition of community organizations and volunteers helping neighbors eliminate fossil gas from their homes and vehicles.
+        </p>
+
+        <h2>Get Involved</h2>
+        <p>
+          Whether you are a homeowner running scenarios for your house, a city advocate hosting community workshops, or a developer interested in contributing to the codebase, we welcome you to join our growing community!
+        </p>
+        <div style="display:flex;gap:14px;margin-top:24px;flex-wrap:wrap;">
+          <a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer" class="btn btn-launch" title="Launch Home Electrification eXplorer">
+            <span><span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+          <a href="https://discord.gg/NreyDh9mt2" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+            <span>Connect on Discord</span>
+          </a>
+          <a href="explainer/index.html" class="btn btn-secondary">
+            <span>System Explainer</span>
+          </a>
+        </div>
+
+      </article>
+    </div>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <img src="assets/WhyWatt_hex_logo_dark.svg" alt="WhyWatt Logo" style="height:48px;width:auto;margin-bottom:12px;">
+          <p>
+            An open, data-driven modeling platform empowering homeowners and community advocates to evaluate clean energy transitions without sales bias.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About WhyWatt? HEX</a></li>
+            <li><a href="community.html">Community (Discord)</a></li>
+            <li><a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer"><span class="hex-blue">H</span>ome <span class="hex-blue">E</span>lectrification e<span class="hex-blue">X</span>plorer</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Documentation</h5>
+          <ul>
+            <li><a href="explainer/index.html">System Explainer</a></li>
+            <li><a href="explainer/pipelines/climate.html">Data Pipelines</a></li>
+            <li><a href="explainer/appliances/index.html">Appliance Models</a></li>
+            <li><a href="presentations/intro_whywatt_v1/index.html">Visual Intro Slides</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h5>Community &amp; Source</h5>
+          <ul>
+            <li><a href="https://discord.gg/NreyDh9mt2" target="_blank" rel="noopener noreferrer">Discord Server</a></li>
+            <li><a href="mailto:vijay@whywatt.org">Contact Us</a></li>
+            <li><a href="https://github.com/vijaybala-git/hes" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div class="collaboration-tag">
+          <img src="assets/echo_icon.svg" alt="Electrification Collaboration Logo" style="height:24px;width:auto;display:inline-block;">
+          <span>Supported by the <strong>Electrification Collaboration</strong></span>
+        </div>
+        <div>
+          &copy; 2026 WhyWatt.org • Open Source &amp; Method
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+    }
+  </script>
+</body>
+</html>

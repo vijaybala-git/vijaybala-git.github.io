@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhyWatt? | Layout Option C (Minimalist Focus)</title>
+  <meta name="description" content="WhyWatt? Home Electrification Explorer mockup - Option C: Minimalist Focus.">
+  <link rel="icon" type="image/svg+xml" href="../assets/WhyWatt.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #fafafc;
+    }
+    .minimal-hero {
+      padding: 64px 0 72px;
+      background: #ffffff;
+      border-bottom: 1px solid var(--line);
+    }
+    .minimal-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+    }
+    .minimal-stat-item h4 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .minimal-stat-item p {
+      font-size: 13px;
+      color: var(--slate);
+      font-weight: 500;
+    }
+    .explainer-preview-box {
+      background: #ffffff;
+      border: 1px solid var(--line-strong);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-md);
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 36px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .explainer-preview-box {
+        grid-template-columns: 1fr;
+      }
+      .minimal-stat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Mockup Layout Switcher -->
+  <aside class="mockup-switcher-bar">
+    <div class="mockup-switcher-inner">
+      <div class="mockup-switcher-label">
+        <span class="mockup-badge-pill">Design Mockups</span>
+        <span>Homepage Layout Options:</span>
+      </div>
+      <div class="mockup-options">
+        <a href="../index.html" class="mockup-opt-btn">Option A: Modern Clean Split</a>
+        <a href="layout-b-editorial.html" class="mockup-opt-btn">Option B: Editorial Story</a>
+        <a href="layout-c-minimal.html" class="mockup-opt-btn active">Option C: Minimalist Focus</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Top Navigation Header -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="../index.html" class="brand-link" title="WhyWatt? Home Electrification Explorer">
+        <img src="../assets/WhyWatt_explorer.svg" alt="WhyWatt Logo" class="brand-logo-img">
+      </a>
+
+      <button class="nav-toggle-btn" id="navToggle" aria-label="Toggle Navigation Menu">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <nav>
+        <ul class="nav-menu" id="navMenu">
+          <li class="nav-item"><a href="../index.html">Home</a></li>
+          <li class="nav-item"><a href="../about.html">About</a></li>
+          <li class="nav-item"><a href="../community.html">Community</a></li>
+          <li class="nav-item"><a href="../explainer/index.html">How It's Built</a></li>
+          <li class="nav-item"><a href="../presentations/intro_whywatt_v1/index.html">Visual Intro</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+          <span>Launch Explorer</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Minimal Hero -->
+  <section class="minimal-hero">
+    <div class="container">
+      <div class="hero-grid" style="align-items: flex-start;">
+        
+        <!-- Left: 2-Paragraph Intro -->
+        <div>
+          <div style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--primary);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:12px;">
+            Open Decision Engine • Mesa + Solara
+          </div>
+
+          <h1 style="font-size:38px;font-weight:800;letter-spacing:-0.03em;color:var(--ink);line-height:1.2;margin-bottom:20px;">
+            WhyWatt? Home Electrification Explorer
+          </h1>
+
+          <div class="hero-body">
+            <p>
+              <strong>WhyWatt? Home Electrification Explorer (HEX)</strong> is an open-source, data-driven modeling platform built for California homeowners and clean energy advocates. Developed in Python with the Mesa agent simulation library and Solara, it models a household's complete energy balance—including heat pump HVAC and water heaters, induction cooktops, EV chargers, rooftop solar, and home battery storage.
+            </p>
+            <p>
+              Rather than promoting vendor equipment, WhyWatt projects two 20-year financial outcomes side by side: <strong>Your Journey</strong> of phased clean upgrades versus a <strong>Do Nothing</strong> baseline where gas appliances are replaced like-for-like as utility rates rise. By combining NREL hourly load shapes, local climate zones, and real utility time-of-use tariffs, it reveals exactly when and how clean energy pays for itself.
+            </p>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">
+              <span>Launch Live App</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </a>
+            <a href="../presentations/intro_whywatt_v1/index.html" class="btn btn-secondary btn-lg">
+              <span>Open Presentation</span>
+            </a>
+          </div>
+
+          <div class="minimal-stat-grid">
+            <div class="minimal-stat-item">
+              <h4>20 Years</h4>
+              <p>Trajectory modeling horizon</p>
+            </div>
+            <div class="minimal-stat-item">
+              <h4>16 Zones</h4>
+              <p>CEC climate microclimates</p>
+            </div>
+            <div class="minimal-stat-item">
+              <h4>100%</h4>
+              <p>Open source &amp; non-commercial</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Side Image Card Linking to Presentations -->
+        <div>
+          <div class="hero-image-card">
+            <div class="card-window-bar">
+              <div class="window-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="window-title">intro_whywatt_v1.slides</div>
+            </div>
+
+            <a href="../presentations/intro_whywatt_v1/index.html" class="card-image-wrap">
+              <img src="../assets/images/whywatt-your-journey.jpg" alt="Your Electrification Journey — Device upgrade cards in WhyWatt">
+              <div class="image-overlay-badge">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <span>View Full Intro Presentation &rarr;</span>
+              </div>
+            </a>
+
+            <div class="hero-image-caption">
+              <span><strong>Device Plan Cards:</strong> HVAC, Water Heater, EV, Solar &amp; Battery</span>
+              <a href="../presentations/intro_whywatt_v1/index.html" style="font-weight:700;">Open &rarr;</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Section: Learn How It's Built -->
+  <section class="section">
+    <div class="container">
+      
+      <div class="explainer-preview-box">
+        <div>
+          <div class="eyebrow" style="background:#e6f6f2;color:#0f8a6f;border-color:rgba(15,138,111,0.2);">
+            Architecture Explainer
+          </div>
+          <h2 style="font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-0.02em;margin-bottom:12px;">
+            Learn How WhyWatt Is Built
+          </h2>
+          <p style="font-size:15.5px;color:var(--slate);line-height:1.6;margin-bottom:20px;">
+            Curious about what's under the hood? Our interactive system explainer breaks down the offline data pipelines (URDB, PVWatts, NREL ResStock, CEC Climate), the thermodynamic appliance models, and the dual-home simulation engine.
+          </p>
+
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <a href="../explainer/index.html" class="btn btn-primary">
+              <span>Open Interactive System Map</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="../explainer/pipelines/climate.html" class="btn btn-secondary">
+              <span>Data Pipelines</span>
+            </a>
+            <a href="../explainer/appliances/index.html" class="btn btn-secondary">
+              <span>Appliance Models</span>
+            </a>
+          </div>
+        </div>
+
+        <div style="background:var(--bg-subtle);border:1px dashed var(--line-strong);border-radius:12px;padding:24px;text-align:center;">
+          <div style="font-family:var(--font-mono);font-size:12px;font-weight:700;color:var(--slate);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px;">
+            Interactive Architecture
+          </div>
+          <p style="font-size:13.5px;color:var(--slate);margin-bottom:16px;">
+            Explore the live node map with 5 data sources, 9 appliances, and the Mesa year-by-year simulation loop.
+          </p>
+          <a href="../explainer/index.html" class="btn btn-sm btn-outline-solar" style="background:#fff;">
+            Launch Explainer Map &rarr;
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="../assets/WhyWatt_explorer_dark.svg" alt="WhyWatt Logo" style="height:44px;width:auto;margin-bottom:8px;">
+          <p>An open, data-driven modeling platform empowering homeowners and community advocates.</p>
+        </div>
+        <div class="footer-col">
+          <h5>Navigation</h5>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="../about.html">About WhyWatt</a></li>
+            <li><a href="../community.html">Community (Discord)</a></li>
+            <li><a href="https://hes.whywatt.org/" target="_blank" rel="noopener noreferrer">Launch App (HEX)</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Documentation</h5>
+          <ul>
+            <li><a href="../explainer/index.html">System Explainer</a></li>
+            <li><a href="../presentations/intro_whywatt_v1/index.html">Visual Intro Slides</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Community</h5>
+          <ul>
+            <li><a href="https://discord.gg/NreyDh9mt2" target="_blank" rel="noopener noreferrer">Discord Server</a></li>
+            <li><a href="mailto:vijay@whywatt.org">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="collaboration-tag">
+          <img src="../assets/echo_icon.svg" alt="Electrification Collaboration Logo" style="height:24px;width:auto;display:inline-block;">
+          <span>Supported by the <strong>Electrification Collaboration</strong></span>
+        </div>
+        <div>&copy; 2026 WhyWatt.org</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', () => { navMenu.classList.toggle('open'); });
+    }
+  </script>
+</body>
+</html>
